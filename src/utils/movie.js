@@ -1,5 +1,5 @@
-//GERAR UMA LISTA DE FILMES COM O TAMANHO QUE EU DESEJAR
 
+//GERAR UMA LISTA DE FILMES COM O TAMANHO QUE EU DESEJAR.
 export function getListMovies(size, movies){
     let popularMovies = [];
 
@@ -8,5 +8,9 @@ export function getListMovies(size, movies){
     }
 
     return popularMovies;
+}
 
+//GERAR UM NÚMERO ALEATÓRIO COM BASE NO TAMANHO DA LISTA DE FILMES QUE EU PASSAR.
+export function randomBanner(movies){
+    return Math.floor(Math.random() * movies.length)
 }
