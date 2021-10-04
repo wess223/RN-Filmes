@@ -23,6 +23,9 @@ import Stars from 'react-native-stars';
 import Genres from '../../components/Genres';
 import ModalLink from '../../components/ModalLink';
 
+import { saveMovie, hasMovie, deleteMovie } from '../../utils/storage';
+
+
 function Detail() {
 
     const navigation = useNavigation();
@@ -30,6 +33,9 @@ function Detail() {
 
     const [movie, setMovie] = useState({});
     const [openLink, setOpenLink] = useState(false);
+
+    const [favoritedMovie, setFavoritedMovie] = useState(false);
+
 
     useEffect(() => {
         let isActive = true;
@@ -48,6 +54,9 @@ function Detail() {
 
             if (isActive) {
                 setMovie(response.data)
+
+                const isFavorite = await hasMovie(response.data)
+                setFavoritedMovie(isFavorite);
             }
         }
 
@@ -62,6 +71,19 @@ function Detail() {
 
     }, [])
 
+    async function favoriteMovie(movie) {
+        if (favoritedMovie) {
+            await deleteMovie(movie.id);
+            setFavoritedMovie(false)
+            alert('Filme removido da sua lista.');
+        } else {
+            await saveMovie('@filmesreact', movie);
+            setFavoritedMovie(true)
+            alert('Filme salvo na sua lista.')
+        }
+
+    }
+
     return (
         <Container>
             <Header>
@@ -73,9 +95,9 @@ function Detail() {
                     />
                 </HeaderButton>
 
-                <HeaderButton>
+                <HeaderButton onPress={() => favoriteMovie(movie)} >
                     <Ionicons
-                        name="bookmark"
+                        name={favoritedMovie ? "bookmarks" : "bookmarks-outline"}
                         size={28}
                         color='#FFF'
                     />
