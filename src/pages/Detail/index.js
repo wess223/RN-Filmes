@@ -110,7 +110,7 @@ function Detail() {
             <ListGenres
                 data={movie?.genres}
                 horizontal={true}
-                showHorizontalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => String(item.id)}
                 renderItem={({ item }) => <Genres data={item} />}
             />
