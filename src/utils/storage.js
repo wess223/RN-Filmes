@@ -32,12 +32,13 @@ export async function saveMovie(key, newMovie) {
 
 //deletar um  filme especifico
 export async function deleteMovie(id) {
+    console.log(id)
     let moviesStored = await getMoviesSave('@filmesreact');
 
     let myMovies = moviesStored.filter(item => {
-        return (item !== id)
+        return (item.id !== id)
     })
-
+    
     await AsyncStorage.setItem('@filmesreact', JSON.stringify(myMovies))
     console.log("FILME DELETADO COM SUCESSO!")
 

@@ -57,6 +57,7 @@ function Detail() {
 
                 const isFavorite = await hasMovie(response.data)
                 setFavoritedMovie(isFavorite);
+
             }
         }
 
@@ -71,7 +72,7 @@ function Detail() {
 
     }, [])
 
-    async function favoriteMovie(movie) {
+    async function handleFavoriteMovie(movie) {
         if (favoritedMovie) {
             await deleteMovie(movie.id);
             setFavoritedMovie(false)
@@ -95,7 +96,7 @@ function Detail() {
                     />
                 </HeaderButton>
 
-                <HeaderButton onPress={() => favoriteMovie(movie)} >
+                <HeaderButton onPress={() => handleFavoriteMovie(movie)} >
                     <Ionicons
                         name={favoritedMovie ? "bookmarks" : "bookmarks-outline"}
                         size={28}
